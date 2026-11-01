@@ -93,7 +93,7 @@ docker compose up -d --build
 
 say "6. Menunggu aplikasi & migrasi database"
 for i in $(seq 1 100); do
-  if curl -fsS -o /dev/null "http://127.0.0.1:${PORT}/api/users/me"; then echo "✓ Aplikasi aktif"; break; fi
+  if curl -fs -o /dev/null "http://127.0.0.1:${PORT}/api/users/me" 2>/dev/null; then echo "✓ Aplikasi aktif"; break; fi
   [ "$i" -eq 100 ] && { echo "✗ Aplikasi tidak merespons. Lihat: docker compose logs --tail=100 app"; exit 1; }
   sleep 3
 done

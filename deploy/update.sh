@@ -20,7 +20,7 @@ docker compose up -d --build --remove-orphans
 
 echo "→ Cek aplikasi"
 for i in $(seq 1 60); do
-  if curl -fsS -o /dev/null "http://127.0.0.1:${PORT}/api/users/me"; then
+  if curl -fs -o /dev/null "http://127.0.0.1:${PORT}/api/users/me" 2>/dev/null; then
     docker image prune -f --filter "label=com.docker.compose.project=triyasa-web" >/dev/null 2>&1 || true
     echo "✓ Website aktif: ${URL}  ·  CMS: ${URL}/admin"
     exit 0
