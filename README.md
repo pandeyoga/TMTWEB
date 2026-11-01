@@ -123,7 +123,9 @@ Atau sekaligus dari komputer (butuh akses SSH ke VPS): `bash deploy/push.sh "pes
    ```bash
    curl -fsSL https://raw.githubusercontent.com/pandeyoga/TMTWEB/main/deploy/diagnose.sh | bash
    ```
-3. Jika dari VPS `curl http://127.0.0.1:8080` berhasil tetapi dari luar tidak, buka port tersebut di firewall panel penyedia VPS.
+3. Jika dari VPS `curl http://127.0.0.1:8080` berhasil tetapi dari luar tidak, port diblokir firewall di luar VPS. Pilih salah satu:
+   - Buka port TCP 8080 di firewall panel penyedia VPS (Hostinger: hPanel → VPS → Keamanan → Firewall).
+   - Atau tanpa membuka port baru, lewat nginx yang sudah ada di port 80: `cd /opt/triyasa-web && bash deploy/nginx-sslip.sh` → website di `http://triyasa.148-230-102-29.sslip.io`.
 
 ### Reset password admin
 
