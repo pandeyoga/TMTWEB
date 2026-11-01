@@ -1,0 +1,110 @@
+/* Triyasa — generated from design/tokens.json. Run `pnpm tokens` after changing tokens. */
+:root, [data-theme="light"] {
+  --surface: #f4f6f9;
+  --surface-raised: #ffffff;
+  --surface-sunken: #e8edf3;
+  --line: #d5dce6;
+  --line-strong: #718096;
+  --ink: #0c1b33;
+  --ink-muted: #4e5d75;
+  --brand: #0e3060;
+  --on-brand: #ffffff;
+  --accent: #0a50b0;
+  --accent-soft: #e3ecf8;
+  --on-accent: #ffffff;
+  --signal: #d71920;
+  --signal-hover: #b3141a;
+  --on-signal: #ffffff;
+  --signal-soft: #fce9ea;
+  --success: #0b7a50;
+  --success-soft: #dff3ea;
+  --warning: #9a5b00;
+  --danger: #b42318;
+  --whatsapp: #128c7e;
+  --focus-ring: var(--accent);
+  --link: var(--accent);
+  --shadow-sm: 0 1px 2px rgba(12,27,51,0.06), 0 0 0 1px rgba(12,27,51,0.04);
+  --shadow-md: 0 18px 40px -22px rgba(12,27,51,0.28);
+  --shadow-float: 0 28px 56px -24px rgba(14,48,96,0.35), 0 2px 6px rgba(12,27,51,0.06);
+}
+[data-theme="dark"] {
+  --surface: #071731;
+  --surface-raised: #0e2445;
+  --surface-sunken: #04102a;
+  --line: #1f3a63;
+  --line-strong: #5e7699;
+  --ink: #eef3fa;
+  --ink-muted: #a7b6cc;
+  --brand: #15407e;
+  --on-brand: #ffffff;
+  --accent: #7ab0ff;
+  --accent-soft: #13335f;
+  --on-accent: #071731;
+  --signal: #e0252c;
+  --signal-hover: #b91c22;
+  --on-signal: #ffffff;
+  --signal-soft: #3b1519;
+  --success: #45cf95;
+  --success-soft: #0f3a2c;
+  --warning: #f2b248;
+  --danger: #ff8a7e;
+  --whatsapp: #128c7e;
+  --focus-ring: var(--accent);
+  --link: var(--accent);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow-md: 0 18px 40px -20px rgba(0,0,0,0.6);
+  --shadow-float: 0 28px 56px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+  color-scheme: dark;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --layout-container: 1240px;
+  --layout-gutter: 24px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --dur-instant: 100ms;
+  --dur-fast: 200ms;
+  --dur-base: 320ms;
+  --dur-slow: 600ms;
+  --dur-reveal: 1000ms;
+  --dur-hero: 1400ms;
+  --dur-stagger: 80ms;
+  --dur-ambient: 6000ms;
+  --dur-marquee: 40s;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-in: cubic-bezier(0.5, 0, 0.75, 0);
+  --ease-linear: linear;
+  --move-sm: 6px;
+  --move-md: 16px;
+  --move-lg: 32px;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.display { font-family: var(--font-sans); font-size: 72px; line-height: 76px; font-weight: 500; letter-spacing: -0.035em; }
+.heading-1 { font-family: var(--font-sans); font-size: 56px; line-height: 62px; font-weight: 500; letter-spacing: -0.03em; }
+.heading-2 { font-family: var(--font-sans); font-size: 44px; line-height: 50px; font-weight: 500; letter-spacing: -0.025em; }
+.heading-3 { font-family: var(--font-sans); font-size: 28px; line-height: 36px; font-weight: 600; letter-spacing: -0.015em; }
+.heading-4 { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.01em; }
+.lead { font-family: var(--font-sans); font-size: 19px; line-height: 31px; font-weight: 400; }
+.body { font-family: var(--font-sans); font-size: 16px; line-height: 26px; font-weight: 400; }
+.body-sm { font-family: var(--font-sans); font-size: 14px; line-height: 22px; font-weight: 400; }
+.button { font-family: var(--font-sans); font-size: 15px; line-height: 20px; font-weight: 600; letter-spacing: -0.005em; }
+.label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 500; letter-spacing: 0.08em; }
+.data { font-family: var(--font-mono); font-size: 13px; line-height: 18px; font-weight: 500; letter-spacing: 0; }
+.numeral { font-family: var(--font-sans); font-size: 64px; line-height: 64px; font-weight: 500; letter-spacing: -0.04em; }
+@font-face { font-family: "Plus Jakarta Sans"; src: url("/fonts/PlusJakartaSans-latin.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "JetBrains Mono"; src: url("/fonts/JetBrainsMono-latin.woff2") format("woff2"); font-weight: 100 800; font-style: normal; font-display: swap; }

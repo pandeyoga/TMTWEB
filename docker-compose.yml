@@ -1,0 +1,80 @@
+# Production stack: PostgreSQL + Website/CMS. Safe to run next to other projects on the same VPS:
+# everything is namespaced "triyasa-web", the database is not published, and the site uses its own port (APP_PORT).
+#   docker compose up -d --build                    → start
+#   docker compose --profile tools run --rm seed    → fill starter content (once, on an empty database)
+#   COMPOSE_PROFILES=caddy in .env                  → also run the bundled Caddy on 80/443 (only if no other web server uses them)
+name: triyasa-web
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: triyasa
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: triyasa
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U triyasa -d triyasa']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build:
+      context: .
+      target: runner
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://triyasa:${POSTGRES_PASSWORD}@db:5432/triyasa
+      MEDIA_DIR: /app/media
+    volumes:
+      - media:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      # Public port for IP access. Set APP_BIND=127.0.0.1 once a reverse proxy (nginx/Caddy) serves the domain.
+      - '${APP_BIND:-0.0.0.0}:${APP_PORT:-8080}:3000'
+
+  caddy:
+    profiles: ['caddy']
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      # Leave empty to serve plain HTTP on the server IP. Set to your domain (e.g. triyasa.co.id) for automatic HTTPS.
+      SITE_ADDRESS: ${SITE_ADDRESS:-:80}
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+  seed:
+    profiles: ['tools']
+    build:
+      context: .
+      target: builder
+    env_file: .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgres://triyasa:${POSTGRES_PASSWORD}@db:5432/triyasa
+      MEDIA_DIR: /app/media
+    volumes:
+      - media:/app/media
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ['sh', '-c', 'corepack enable pnpm && pnpm seed']
+
+volumes:
+  pgdata:
+  media:
+  caddy_data:
+  caddy_config:
