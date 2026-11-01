@@ -21,7 +21,6 @@ RUN corepack enable pnpm && PAYLOAD_SECRET=$PAYLOAD_SECRET DATABASE_URL=$DATABAS
 FROM base AS runner
 ENV NODE_ENV=production \
     PORT=3000 \
-    HOSTNAME=0.0.0.0 \
     MEDIA_DIR=/app/media
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
@@ -30,5 +29,5 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 RUN mkdir -p /app/media && chown -R nextjs:nodejs /app/media
 USER nextjs
 EXPOSE 3000
-# Database migrations run automatically on start (payload prodMigrations).
-CMD ["node", "server.js"]
+# Docker overrides HOSTNAME with the container id, so set it at start. Migrations run automatically on boot.
+CMD ["sh", "-c", "HOSTNAME=0.0.0.0 exec node server.js"]

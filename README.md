@@ -83,6 +83,7 @@ VPS ini juga menjalankan project lain, jadi website ini **tidak memakai port 80/
 | `deploy/push.sh "pesan" [--deploy]` | Komputer Anda | Commit + push; dengan `--deploy` sekaligus menjalankan `update.sh` di VPS lewat SSH. |
 | `deploy/backup.sh` | VPS | Backup database + media ke `/opt/triyasa-backups` (14 hari). |
 | `deploy/status.sh` | VPS | Status container, URL, dan log terakhir. |
+| `deploy/diagnose.sh` | VPS | Kumpulkan info lengkap untuk troubleshooting (tanpa secret). |
 
 ### Instalasi pertama (satu perintah)
 
@@ -113,6 +114,15 @@ cd /opt/triyasa-web && bash deploy/update.sh
 Atau sekaligus dari komputer (butuh akses SSH ke VPS): `bash deploy/push.sh "pesan perubahan" --deploy`.
 
 `update.sh` memakai `git reset --hard`, jadi jangan mengedit kode langsung di VPS. File `.env`, database, dan media tidak tersentuh.
+
+### Website tidak bisa dibuka?
+
+1. Pastikan membuka **dengan port**: `http://148.230.102.29:8080` (port ada di baris `APP_PORT` di `/opt/triyasa-web/.env`).
+2. Jalankan diagnosa di VPS dan kirimkan hasilnya:
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/pandeyoga/TMTWEB/main/deploy/diagnose.sh | bash
+   ```
+3. Jika dari VPS `curl http://127.0.0.1:8080` berhasil tetapi dari luar tidak, buka port tersebut di firewall panel penyedia VPS.
 
 ### Reset password admin
 

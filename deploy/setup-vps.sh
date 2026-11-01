@@ -8,6 +8,14 @@ source deploy/config.sh
 
 if [ "$(id -u)" -ne 0 ]; then echo "Jalankan sebagai root (sudo -i)."; exit 1; fi
 say() { printf '\n\033[1;34m== %s\033[0m\n' "$*"; }
+on_error() {
+  echo
+  echo "✗ Setup berhenti karena error (baris $1). Ringkasan untuk diagnosa:"
+  docker compose ps -a 2>/dev/null || true
+  docker compose logs --no-color --tail=60 app 2>/dev/null || true
+  echo "Jalankan ulang setelah diperbaiki: cd $(pwd) && ADMIN_PASSWORD='...' bash deploy/setup-vps.sh"
+}
+trap 'on_error $LINENO' ERR
 env_get() { grep -E "^$1=" .env 2>/dev/null | tail -1 | cut -d= -f2-; }
 port_used() {
   if command -v ss >/dev/null 2>&1; then ss -ltnH "( sport = :$1 )" | grep -q . && return 0; fi
