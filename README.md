@@ -77,6 +77,7 @@ VPS ini juga menjalankan project lain, jadi website ini **tidak memakai port 80/
 
 | Skrip | Dijalankan di | Fungsi |
 |---|---|---|
+| `deploy/check-vps.sh` | VPS, sebelum install | **Hanya membaca**: OS, RAM, disk, port terpakai, web server/panel, container Docker, firewall, port kosong. |
 | `deploy/install.sh` | VPS, sekali | Pasang git, clone repo ke `/opt/triyasa-web`, lalu jalankan `setup-vps.sh`. |
 | `deploy/setup-vps.sh` | VPS (aman diulang) | Cek server, pasang Docker bila belum ada, tambah swap bila perlu, pilih port kosong, buat `.env` dengan secret acak, build & jalankan, isi konten awal, buat super admin. |
 | `deploy/update.sh` | VPS, setiap update | Backup database, ambil kode terbaru, build ulang, cek website aktif. |
